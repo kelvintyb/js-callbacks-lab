@@ -1,30 +1,29 @@
-$('#reset').on('click', clickHandlerReset)
-$('#start').on('click', clickHandlerStart)
-$('#pause').on('click', clickHandlerPause)
-
 var timer = {
-  var seconds = 0,
-    timerId;
+  seconds: 0,
+  timerId: undefined,
 
-  function updateTime() {
-    seconds += 1;
-    console.log(seconds);
-    $('#timer').text(seconds);
-  }
+  initClicks: function() {
+    $('#reset').on('click', timer.setResetClick);
+    $('#start').on('click', timer.setStartClick);
+    $('#pause').on('click', timer.setPauseClick);
+  },
 
-  function clickHandlerStart() {
-    timerId = window.setInterval(updateTime, 1000);
-  }
-
-  // Stop -- but do not reset! -- the timer using clearInterval().
-  function clickHandlerPause() {
-    window.clearInterval(timerId);
-  }
-
-  function clickHandlerReset() {
-    window.clearInterval(timerId);
-    seconds = 0;
+  setStartClick: function() {
+    timer.timerId = window.setInterval(timer.updateTime, 1000);
+  },
+  setPauseClick: function() {
+    window.clearInterval(timer.timerId);
+  },
+  setResetClick: function() {
+    window.clearInterval(timer.timerId);
+    timer.seconds = 0;
     $('#timer').text('Stop Watch');
+  },
+  updateTime: function() {
+    timer.seconds += 1;
+    console.log(timer.seconds);
+    $('#timer').text(timer.seconds);
   }
-
 }
+
+timer.initClicks();
