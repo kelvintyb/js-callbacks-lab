@@ -27,3 +27,5 @@ var timer = {
 }
 
 timer.initClicks();
+
+//should try to implement with bind or apply/call, instead of calling the main timer object repeatedly
